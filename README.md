@@ -89,7 +89,10 @@ Feel free to open an issue or pull request for improvements or bug fixes.
 
 ## 🤝 Contributors
 
-Thank you for the helps from Dr. Jiajian Zhou, Dr. Xinquan Zeng.
+> Current contributors:
+- Yusen Lin
+- Xingqaun Zeng
+- Jiajian Zhou
 ---
 
 ## 📄 License
