@@ -4,20 +4,6 @@ This script performs **k-mer extraction, counting, normalization, and comparison
 
 It focuses on analyzing short sequence fragments located between user-defined **upstream and downstream primers**, allowing precise quantification of ligation-based tags captured during SRLE-seq. This facilitates in-depth profiling of subcellular transcript distribution.
 
-### ✨ Key Capabilities:
-
-- **SRLE-seq specific:** Targets ligation junctions flanked by known primers in SRLE-seq protocols
-- **Compartment-specific analysis:** Quantifies k-mer diversity and abundance in nuclear vs. cytoplasmic fractions
-- **CPM normalization:** Converts raw counts to **Counts Per Million (CPM)** for comparability
-- **Differential profiling:** Computes **log₂ fold changes** in k-mer usage between compartments
-- **Publication-ready outputs:** Generates `.csv` tables and color-coded scatter plots for visualization and reporting
-
-### 📌 Applications:
-- SRLE-seq expression pattern analysis
-- Nuclear/cytoplasmic localization studies
-- RNA processing, transport, or decay mechanism investigation
-- Primer-anchored tag analysis from custom ligation-based sequencing protocols
-
 ## 🧪 Installation
 
 Requires Python ≥ 3.6 and the following libraries:
