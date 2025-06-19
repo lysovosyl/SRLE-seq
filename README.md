@@ -6,7 +6,7 @@ RNA molecules localize to specific subcellular compartments to perform their fun
 
 Requires Python ≥ 3.8 and the following libraries:
 ```bash
-pip install biopython numpy scipy tqdm
+pip install biopython numpy scipy tqdm pyyaml
 ```
 ---
 # ⚙️ Functional
