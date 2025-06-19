@@ -41,8 +41,11 @@ python kmer_diversity_validation.py \
   -kmer_length 6 \
 ```
 ### 4.Check the Output
+
 After completion, the output directory will contain:
+
 kmer_diversity.validation.tsv – records the raw count and CPM (counts per million) for each k-mer.
+
 ---
 
 ## 📚 Fragment-based library diversity validation
@@ -82,9 +85,13 @@ python sequence_diversity_validation.py \
   -thread 64
 ```
 ### 4.Check the Output
+
 After completion, the output directory will contain:
+
 dna_fragment.coverage.bed - BED-format file showing per-base coverage of extracted fragments across the specified gene region.
+
 dna_fragment.coverage.png - Coverage plot visualizing the distribution of extracted fragments.
+
 ---
 ## 📍 Library location analysis
 ### 1.Introduction
@@ -128,10 +135,15 @@ python library_location_analysis.py \
 ```
 
 ### 4.Check the Output
+
 After completion, the output directory will contain:
+
 cyto.kmer.count.csv - the counts of each kmer which split from cytoplasm 
+
 nuc.kmer.count.csv  - the counts of each kmer which split from nuclear 
+
 nuc.cyto.kmer.count.png  - Scatter plot comparing the abundance of each k-mer in the cytoplasm (x-axis) versus the nucleus (y-axis).
+
 kmer.info.csv - Summary table reporting the log₂ fold change (cytoplasm vs. nucleus) and Nuclear Retention Score (NES) for each k-mer.
 
 
