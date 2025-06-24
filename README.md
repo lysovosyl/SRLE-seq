@@ -42,7 +42,9 @@ python kmer_diversity_validation.py \
 ```
 ### 4.Check the Output
 After completion, the output directory will contain:
+
 kmer_diversity.validation.tsv – records the raw count and CPM (counts per million) for each k-mer.
+
 ---
 
 ## 📚 Fragment-based library diversity validation
@@ -83,18 +85,15 @@ python randomfrag_diversity_evaluation.py \
 ```
 ### 4.Check the Output
 After completion, the output directory will contain:
+
 dna_fragment.coverage.bed - BED-format file showing per-base coverage of extracted fragments across the specified gene region.
+
 dna_fragment.coverage.png - Coverage plot visualizing the distribution of extracted fragments.
+
 ---
-## 📍 Library location analysis
+## 📍 Kmer location analysis
 ### 1.Introduction
-This section aims to investigate the subcellular localization preferences of individual fragments following plasmid transfection into cells. As a prerequisite, quality control (QC) is performed on the post-transfection library, which involves two key components:
-
-**For the k-mer library:** The presence and abundance of each k-mer in the transfected cells are assessed. To pass QC, a k-mer must exhibit a count-per-million (CPM) value greater than 1 in at least one of the Total, Nuclear (Nuc), or Cytoplasmic (Cyto) compartments, indicating successful transfection and sufficient expression.
-
-**For the sequence fragment library:** Each fragment is required to have a minimum sequencing coverage of 100× to ensure reliable quantification.
-
-Following quality control, the abundance, CPM, and nuclear enrichment score (NES) of each k-mer or sequence fragment are calculated to facilitate subsequent analysis of their subcellular distribution patterns.
+This section aims to investigate the subcellular localization preferences of individual k-mers following plasmid transfection into cells. As a prerequisite, quality control (QC) is performed on the post-transfection k-mer library. A k-mer is considered to pass QC if it shows a count-per-million (CPM) value greater than 1 in at least one of the three compartments: Total, Nuclear (Nuc), or Cytoplasmic (Cyto). This criterion ensures that the k-mer has been successfully transfected and exhibits sufficient expression for downstream analysis.
 
 ### 2.Input Requirements
 The script accepts the following required command-line arguments:
@@ -131,14 +130,64 @@ python library_location_analysis.py \
 
 After completion, the output directory will contain:
 
-cyto.kmer.count.csv - the counts of each kmer which split from cytoplasm 
+kmer_complexity.kmer.count.png – A scatter plot comparing the abundance (CPM) of each k-mer between the cytoplasmic (x-axis) and nuclear (y-axis) compartments. This plot reveals subcellular localization patterns of individual k-mers.
 
-nuc.kmer.count.csv  - the counts of each kmer which split from nuclear 
+kmer_complexity.info.csv – A summary table listing each k-mer's cytoplasmic and nuclear counts, log₂ fold change (cytoplasm vs. nucleus), and Nuclear Enrichment Score (NES), providing quantitative metrics for assessing k-mer localization bias.
 
-nuc.cyto.kmer.count.png  - Scatter plot comparing the abundance of each k-mer in the cytoplasm (x-axis) versus the nucleus (y-axis).
+---
+## 📍 Randomfrag location analysis
+### 1.Introduction
+This section focuses on the subcellular localization patterns of full-length or partial sequence fragments after plasmid transfection. Quality control of the fragment library requires each fragment to have a minimum sequencing coverage of 100×, ensuring reliable detection and quantification. Only fragments meeting this coverage threshold are included in subsequent analyses to evaluate their abundance, CPM, and nuclear enrichment score (NES), which together provide insights into their subcellular distribution characteristics.
 
-kmer.info.csv - Summary table reporting the log₂ fold change (cytoplasm vs. nucleus) and Nuclear Retention Score (NES) for each k-mer.
+### 2.Input Requirements
+The script accepts the following required command-line arguments:
 
+| Argument             | Type   | Description                                                 | Default |
+|----------------------|--------|-------------------------------------------------------------|---------|
+| `-nuc_fq1`           | `str`  | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
+| `-nuc_fq2`           | `str`  | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
+| `-cyto_fq1`          | `str`  | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
+| `-cyto_fq2 `         | `str`  | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
+| `-s`                 | `str`  | Output directory for saving result figures and tables       |         |
+| `-up_flanking`       | `str`  | Sequence of the upstream (5') anchor primer                 |         |
+| `-down_flanking`     | `str`  | Sequence of the downstream (3') anchor primer               |         |
+| `-gene_chr`          | `str`  | Processing mode: `kmer_complexity` or `fragment_complexity` |         |
+| `-gene_region_start` | `int`  | Start coordinate of the target gene region (1-based)        |         |
+| `-gene_region_end`   | `int`  | End coordinate of the target gene region (1-based)          |         |
+| `-config`            | `str`  | Path to a configuration file containing parameter presets   |         |
+| `-thread`            | `int`  | Number of threads to use for parallel processing            |         |
+> ⚠️ For paired-end reads with Paired-End sequences, at least one of the primer-binding regions should be longer than 150 bp. Otherwise, the reads should be merged using PEAR before further processing. 
+
+### 3.Quick Start
+Follow these steps to quickly analyse fragment location analysis:
+```angular2html
+python randomfrag_location_analysis.py \
+  -nuc_fq1_file nuc.R1.fastq \
+  -nuc_fq2_file nuc.R2.fastq \
+  -cyto_fq1_file cyto.R1.fastq \
+  -cyto_fq2_file cyto.R2.fastq \
+  -s ./ \
+  -up_flanking ATTATGAT \
+  -down_flanking GCTTAGTG \
+  -mode kmer_complexity \
+  -gene_chr chr11 \
+  -gene_region_start 65497688 \
+  -gene_region_end 65506516 \
+  -config ./config.yaml \
+  -thread 64 \
+```
+
+### 4.Check the Output
+
+After completion, the output directory will contain:
+
+randomfrag_diversity.tsv – The abundance (read count and CPM) of each random fragment derived from the target gene.
+
+coverage.bed – Base-level coverage information for each specified gene region, indicating how many reads cover each genomic position.
+
+dna_fragment.coverage.png – A visualization of base-level sequencing coverage across each specified gene region, illustrating the distribution and depth of coverage.
+
+Fragment.length.distribution.png – A scatter plot comparing the abundance of each k-mer in the cytoplasm (x-axis) versus the nucleus (y-axis), highlighting their subcellular localization tendencies.
 
 ---
 
