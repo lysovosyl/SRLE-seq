@@ -6,7 +6,7 @@ RNA molecules localize to specific subcellular compartments to perform their fun
 
 Requires Python ≥ 3.8 and the following libraries:
 ```bash
-pip install biopython numpy scipy tqdm pyyaml
+pip install biopython numpy scipy tqdm
 ```
 ---
 # ⚙️ Functional
@@ -41,11 +41,8 @@ python kmer_diversity_validation.py \
   -kmer_length 6 \
 ```
 ### 4.Check the Output
-
 After completion, the output directory will contain:
-
 kmer_diversity.validation.tsv – records the raw count and CPM (counts per million) for each k-mer.
-
 ---
 
 ## 📚 Fragment-based library diversity validation
@@ -72,7 +69,7 @@ The script accepts the following required command-line arguments:
 ### 3.Quick Start
 Follow these steps to quickly analyse library diversity:
 ```angular2html
-python sequence_diversity_validation.py \
+python randomfrag_diversity_evaluation.py \
   -fq1 R1.fastq \
   -fq2 R2.fastq \
   -s ./ \
@@ -85,13 +82,9 @@ python sequence_diversity_validation.py \
   -thread 64
 ```
 ### 4.Check the Output
-
 After completion, the output directory will contain:
-
 dna_fragment.coverage.bed - BED-format file showing per-base coverage of extracted fragments across the specified gene region.
-
 dna_fragment.coverage.png - Coverage plot visualizing the distribution of extracted fragments.
-
 ---
 ## 📍 Library location analysis
 ### 1.Introduction
