@@ -11,10 +11,57 @@ pip install biopython numpy scipy tqdm
 ---
 # ⚙️ Functional
 
+## 📍 Paired-end FASTQ Demultiplexing by Primer Matching
+### 1.Introduction
+This script performs demultiplexing of paired-end FASTQ reads based on primer sequences.
+It identifies which library (or sample) each read pair belongs to by checking the beginning of R1 and R2 sequences for matching primer pairs, and then writes the matched reads into separate FASTQ files for each library.
+
+### 2.Input Requirements
+The script accepts the following required command-line arguments:
+
+| Argument   | Type    | Description                                                    | Default |
+|------------|---------|----------------------------------------------------------------|---------|
+| `-fq1`     | `str`   | Path to R1 FASTQ file                                          |         |
+| `-fq2`     | `str`   | Path to R2 FASTQ file                                          |         |
+| `-s`       | `str`   | Output directory for demultiplexed reads                       |         |
+| `-primer`  | `str`   | Primer list file containing library names and primer sequences |         |
+
+
+### 3.Quick Start
+Example of `primer.txt` (save this file in plain text format):
+```text
+lib1 TTCATACCTCTTATCTTCCTCCCACA TAAAACCTCTACAAATGTGGTATGGCTG
+lib2 CTGGGCAACGTGCTGGTCTGT GGGGAGGTGTGGGAGGTTTTTTAAAG
+lib3 TCATGTTCATACCTCTTATCTTCCT CCTCTACAAATGTGGTATGGCTGATT
+```
+
+Run the script with your FASTQ files and primer list:
+```angular2html
+python library_split.py \
+  -fq1 /path/to/R1.fq \
+  -fq2 /path/to/R2.fq \
+  -s /path/to/output_dir \
+  -primer /path/to/primer.txt
+```
+
+### 4.Check the Output
+After the script finishes, the output directory will contain:
+```
+output_dir
+    └──lib1/
+        ├── 1.fq   (R1 reads)
+        └── 2.fq   (R2 reads)
+    └──lib2/
+        ├── 1.fq   (R1 reads)
+        └── 2.fq   (R2 reads)
+    └──lib3/
+        ├── 1.fq   (R1 reads)
+        └── 2.fq   (R2 reads)
+```
+
 ## 📚 Kmer-based library diversity validation
 ### 1.Introduction
 This section is designed to validate whether the constructed Kmer-based plasmid library is suitable for downstream experiments. The distribution of plasmid types corresponding to each k-mer should be relatively uniform. No single k-mer type should dominate the library in abundance, as this would indicate amplification bias or cloning artifacts.
-
 
 ### 2.Input Requirements
 The script accepts the following required command-line arguments:
@@ -22,7 +69,7 @@ The script accepts the following required command-line arguments:
 | Argument         | Type     | Description                                              | Default |
 |------------------|----------|----------------------------------------------------------|---------|
 | `-fq1`           | `str`    | Path to the nuclear sample R1 (forward reads) FASTQ file |         |
-| `-fq2`           | `str`    | Path to the nuclear sample R2 (reverse reads) FASTQ file | None    |
+| `-fq2`           | `str`    | Path to the nuclear sample R2 (reverse reads) FASTQ file |         |
 | `-s`             | `str`    | Output directory for saving result figures and tables    |         |
 | `-up_flanking`   | `str`    | Sequence of the upstream (5') anchor primer              |         |
 | `-down_flanking` | `str`    | Sequence of the downstream (3') anchor primer            |         |
@@ -32,7 +79,7 @@ The script accepts the following required command-line arguments:
 ### 3.Quick Start
 Follow these steps to quickly analyse library diversity:
 ```angular2html
-python kmer_diversity_validation.py \
+python kmer_diversity_evaluation.py \
   -fq1 R1.fastq \
   -fq2 R2.fastq \
   -s ./ \
@@ -100,10 +147,10 @@ The script accepts the following required command-line arguments:
 
 | Argument         | Type  | Description                                                 | Default |
 |------------------|-------|-------------------------------------------------------------|---------|
-| `-nuc_fq1_file`  | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
-| `-nuc_fq2_file`  | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
-| `-cyto_fq1_file` | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
-| `-cyto_fq2_file` | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
+| `-nuc_fq1`  | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
+| `-nuc_fq2`  | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
+| `-cyto_fq1` | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
+| `-cyto_fq2` | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
 | `-s`             | `str` | Output directory for saving result figures and tables       |         |
 | `-up_flanking`   | `str` | Sequence of the upstream (5') anchor primer                 |         |
 | `-down_flanking` | `str` | Sequence of the downstream (3') anchor primer               |         |
@@ -114,11 +161,11 @@ The script accepts the following required command-line arguments:
 ### 3.Quick Start
 Follow these steps to quickly analyse fragment location analysis:
 ```angular2html
-python library_location_analysis.py \
-  -nuc_fq1_file nuc.R1.fastq \
-  -nuc_fq2_file nuc.R2.fastq \
-  -cyto_fq1_file cyto.R1.fastq \
-  -cyto_fq2_file cyto.R2.fastq \
+python kmer_location_analysis.py \
+  -nuc_fq1 nuc.R1.fastq \
+  -nuc_fq2 nuc.R2.fastq \
+  -cyto_fq1 cyto.R1.fastq \
+  -cyto_fq2 cyto.R2.fastq \
   -s ./ \
   -up_flanking ATTATGAT \
   -down_flanking GCTTAGTG \
@@ -162,14 +209,13 @@ The script accepts the following required command-line arguments:
 Follow these steps to quickly analyse fragment location analysis:
 ```angular2html
 python randomfrag_location_analysis.py \
-  -nuc_fq1_file nuc.R1.fastq \
-  -nuc_fq2_file nuc.R2.fastq \
-  -cyto_fq1_file cyto.R1.fastq \
-  -cyto_fq2_file cyto.R2.fastq \
+  -nuc_fq1 nuc.R1.fastq \
+  -nuc_fq2 nuc.R2.fastq \
+  -cyto_fq1 cyto.R1.fastq \
+  -cyto_fq2 cyto.R2.fastq \
   -s ./ \
   -up_flanking ATTATGAT \
   -down_flanking GCTTAGTG \
-  -mode kmer_complexity \
   -gene_chr chr11 \
   -gene_region_start 65497688 \
   -gene_region_end 65506516 \
@@ -189,7 +235,12 @@ dna_fragment.coverage.png – A visualization of base-level sequencing coverage 
 
 Fragment.length.distribution.png – A scatter plot comparing the abundance of each k-mer in the cytoplasm (x-axis) versus the nucleus (y-axis), highlighting their subcellular localization tendencies.
 
+
+### 4.Check the Output
+After the script finishes, the output file will contain:
+results.csv - A table of predict location for each reads.
 ---
+
 
 # 📝 Please Cite
 
