@@ -229,7 +229,7 @@ def save_result(kmer_count,total_count,name_list,effected_fragment_length_list,c
     sorted_data = dict(sorted(kmer_count.items(), key=lambda item: item[1], reverse=True))
 
 
-    f = open(os.path.join(save_path,f'kmer_diversity.validation.tsv'),'w')
+    f = open(os.path.join(save_path,f'randomfrag_diversity.tsv'),'w')
     w = csv.writer(f,delimiter='\t')
     w.writerow([f'# total sequence count:{total_count}'])
     w.writerow([f'# effected sequence count:{len(name_list)}\tpercentage:{len(name_list)/total_count}'])

@@ -8,23 +8,23 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import re
 
-parse = argparse.ArgumentParser(description="K-mer counting and plotting script for nuc/cyto comparison")
-parse.add_argument('-fq1', type=str, required=True, help="R1 fastq file")
-parse.add_argument('-fq2', type=str, required=True, help="R2 fastq file")
-parse.add_argument('-s', type=str, required=True, help="Output directory for saving result figures and tables")
-parse.add_argument('-primer', type=str, required=True, help="primer file")
-args = parse.parse_args()
-
-fq1_file = args.fq1
-fq2_file = args.fq2
-save_path = args.s
-primer_file = args.primer
-
+# parse = argparse.ArgumentParser(description="K-mer counting and plotting script for nuc/cyto comparison")
+# parse.add_argument('-fq1', type=str, required=True, help="R1 fastq file")
+# parse.add_argument('-fq2', type=str, required=True, help="R2 fastq file")
+# parse.add_argument('-s', type=str, required=True, help="Output directory for saving result figures and tables")
+# parse.add_argument('-primer', type=str, required=True, help="primer file")
+# args = parse.parse_args()
 #
-# fq1_file = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto/Cyto_1.fq'
-# fq2_file = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto/Cyto_2.fq'
-# save_path = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto'
-# primer_file = '/mnt/dfc_data2/project/linyusen/project/72_xinquan_rnaloc/github/primer.txt'
+# fq1_file = args.fq1
+# fq2_file = args.fq2
+# save_path = args.s
+# primer_file = args.primer
+
+
+fq1_file = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto/Cyto_1.fq'
+fq2_file = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto/Cyto_2.fq'
+save_path = '/mnt/dfc_data3/project/linyusen/01.RawData/Cyto2'
+primer_file = '/mnt/dfc_data2/project/linyusen/project/72_xinquan_rnaloc/github/primer.txt'
 
 primer_dict = {}
 f = open(primer_file)
