@@ -68,4 +68,5 @@ python infer_sequence.py \
 After the script finishes, the output file will contain:
 results.csv - A table of predict location for each reads.
 ---
-```
+
+
