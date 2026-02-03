@@ -14,8 +14,9 @@ parse.add_argument('-fq2', type=str, required=True, help="R2 fastq file")
 parse.add_argument('-s', type=str, required=True, help="Output directory for saving result figures and tables")
 parse.add_argument('-up_flanking', type=str, required=True, help="Sequence of the upstream (5') anchor primer")
 parse.add_argument('-down_flanking', type=str, required=True, help="Sequence of the downstream (3') anchor primer")
-parse.add_argument('-kmer_length', type=int, default=None, help="Length of k-mers to count")
+parse.add_argument('-kmer_length', type=int, required=True, help="Length of k-mers to count")
 args = parse.parse_args()
+
 
 fq1_file = args.fq1
 fq2_file = args.fq2
@@ -151,4 +152,5 @@ plt.title(f"Kmers Count Distribution")
 plt.tight_layout()
 figure_save_path = os.path.join(save_path,'kmer.distribution.png')
 plt.savefig(figure_save_path)
+
 print('Done!')
