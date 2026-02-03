@@ -28,7 +28,7 @@ parse.add_argument('-gene_chr', type=str, required=True, help="Chromosome name o
 parse.add_argument('-gene_region_start', type=int, required=True, help="	Start coordinate of the target gene region (1-based)")
 parse.add_argument('-gene_region_end', type=int, required=True, help="End coordinate of the target gene region (1-based)")
 parse.add_argument('-config', type=str, default='./config.yaml', help="Path to a configuration file containing parameter presets")
-parse.add_argument('-thread', type=int,required=True,help='Number of threads to use for parallel processing')
+parse.add_argument('-thread', type=int,default=4,help='Number of threads to use for parallel processing')
 args = parse.parse_args()
 
 fq1_file = args.fq1
@@ -224,4 +224,5 @@ plt.title(f"Fragment Length Distribution")
 plt.tight_layout()
 figure_save_path = os.path.join(save_path,'Fragment.length.distribution.png')
 plt.savefig(figure_save_path)
+
 print('Done!')
