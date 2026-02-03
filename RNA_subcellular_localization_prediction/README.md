@@ -65,9 +65,13 @@ python infer_sequence.py \
 ```
 
 ### 4.Check the Output
+
 After the script finishes, the output file will contain:
+```angular2html
 results.csv - A table of predict location for each reads.
+```
 ---
+
 
 
 
