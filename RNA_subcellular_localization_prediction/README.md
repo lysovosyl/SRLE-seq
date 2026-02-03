@@ -37,4 +37,35 @@ After training completes, the output directory will contain:
 ```angular2html
 model.pt
 accuracy.csv
+
+---
+## 📍 Sequence Prediction
+### 1.Introduction
+This script performs inference using a pre-trained sequence classifier.
+
+### 2.Input Requirements
+The script accepts the following required command-line arguments:
+
+| Argument       | Type    | Description                                                            | Default |
+|----------------|---------|------------------------------------------------------------------------|---------|
+| `--input`      | `str`   | Input CSV file containing sequences with seq_id in the first column    |         |
+| `--model`      | `str`   | Pre-trained model file path (.pt / .pth)                               |         |
+| `--out`        | `str`   | Output CSV file for prediction results                                 |         |
+| `--device`     | `str`   | Device to run prediction (cuda or cpu)                                 |         |
+
+
+### 3.Quick Start
+Run inference using the following command:
+```angular2html
+python infer_sequence.py \
+  --input sequence.tsv \
+  --model model.pt \
+  --out results.csv \
+  --device cuda \
+```
+
+### 4.Check the Output
+After the script finishes, the output file will contain:
+results.csv - A table of predict location for each reads.
+---
 ```
