@@ -1,4 +1,5 @@
 # 🧬 Tookit for SRLE-seq data analysis
+
 RNA molecules localize to specific subcellular compartments to perform their functions. While most mRNAs are translated at the endoplasmic reticulum, many lncRNAs act within organelles. To better understand RNA localization mechanisms, we developed SRLE-seq (Screening RNA Localization Elements by Sequencing), a high-throughput method to identify functional localization elements. 
 
 ---
@@ -7,6 +8,7 @@ RNA molecules localize to specific subcellular compartments to perform their fun
 Requires Python ≥ 3.8 and the following libraries:
 ```bash
 pip install biopython numpy scipy tqdm
+git clone https://github.com/lysovosyl/SRLE-seq.git
 ```
 
 Please replace the setting information of your computer in [config.yaml](./config.yaml).
@@ -16,10 +18,10 @@ Please replace the setting information of your computer in [config.yaml](./confi
 
 ## 📚 1. Demultiplex
 
-This script performs demultiplexing of paired-end FASTQ reads based on primer sequences.
-It identifies which library (or sample) each read pair belongs to by checking the beginning of R1 and R2 sequences for matching primer pairs, and then writes the matched reads into separate FASTQ files for each library.
+This script performs demultiplexing of paired-end FASTQ reads based on primer sequences. It identifies which library (or sample) each read pair belongs to by checking the beginning of R1 and R2 sequences for matching primer pairs, and then writes the matched reads into separate FASTQ files for each library.
 
 ### Input Requirements
+
 The script accepts the following required command-line arguments:
 
 | Argument   | Type    | Description                                                    | Default |
@@ -48,7 +50,8 @@ python library_split.py \
 ```
 
 ### Output
-After the script finishes, the output directory will contain:
+
+After the script finished, the output directory will contain:
 ```
 output_dir
     └──lib1/
@@ -77,7 +80,6 @@ The script accepts the following required command-line arguments:
 | `-up_flanking`   | `str`    | Sequence of the upstream (5') anchor primer              |         |
 | `-down_flanking` | `str`    | Sequence of the downstream (3') anchor primer            |         |
 | `-kmer_length`   | `str`    | Length of k-mers to count                                |         |
-> ⚠️ For paired-end reads with Paired-End sequences, at least one of the primer-binding regions should be longer than 150 bp. Otherwise, the reads should be merged using PEAR before further processing. 
 
 ### Quick Start
 Follow these steps to quickly analyse library diversity:
@@ -116,7 +118,6 @@ The script accepts the following required command-line arguments:
 | `-gene_region_end`   | `int` | End coordinate of the target gene region (1-based)         |         |
 | `-config`            | `str` | Path to a configuration file containing parameter presets  |         |
 | `-thread`            | `int` | Number of threads to use for parallel processing           |         |
-> ⚠️ For paired-end reads with Paired-End sequences, at least one of the primer-binding regions should be longer than 150 bp. Otherwise, the reads should be merged using PEAR before further processing. 
 
 ### Quick Start
 Follow these steps to quickly analyse library diversity:
@@ -159,7 +160,6 @@ The script accepts the following required command-line arguments:
 | `-down_flanking` | `str` | Sequence of the downstream (3') anchor primer               |         |
 | `-mode`          | `str` | Processing mode: `kmer_complexity` or `fragment_complexity` |         |
 | `-kmer_length`   | `int` | Length of k-mers to count                                   |         |
-> ⚠️ For paired-end reads with Paired-End sequences, at least one of the primer-binding regions should be longer than 150 bp. Otherwise, the reads should be merged using PEAR before further processing. 
 
 ### Quick Start
 Follow these steps to quickly analyse fragment location analysis:
@@ -206,7 +206,6 @@ The script accepts the following required command-line arguments:
 | `-gene_region_end`   | `int`  | End coordinate of the target gene region (1-based)          |         |
 | `-config`            | `str`  | Path to a configuration file containing parameter presets   |         |
 | `-thread`            | `int`  | Number of threads to use for parallel processing            |         |
-> ⚠️ For paired-end reads with Paired-End sequences, at least one of the primer-binding regions should be longer than 150 bp. Otherwise, the reads should be merged using PEAR before further processing. 
 
 ### Quick Start
 Follow these steps to quickly analyse fragment location analysis:
@@ -245,7 +244,75 @@ results.csv - A table of predict location for each reads.
 
 We implements a Transformer-based deep learning model for binary classification of RNAs using the NSE derived from SRLE-seq.
 
-### 
+### Model training
+
+We provides a PyTorch-based sequence classification pipeline using a Transformer architecture.
+
+#### Input Requirements
+
+| Argument       | Type     | Description                         | Default |
+|----------------|----------|-------------------------------------|---------|
+| `--file0`      | `str` | TSV file containing class 0 samples |         |
+| `--file1`      | `str` | TSV file containing class 1 samples |         |
+| `--out`        | `str` | Output directory for results        |         |
+| `--epochs`     | `str` | Number of training epochs           |         |
+| `--batch`      | `str` | Batch size                          |         |
+| `--lr`         | `str` | Learning rate                       |         |
+| `--test_size`  | `int` | Proportion of data used for testing |         |
+
+
+#### Quick Start
+Follow these steps to train the model:
+```angular2html
+cd RNA_subcellular_localization_prediction/
+python train.py \
+  --file0 class0.tsv \
+  --file1 class1.tsv \
+  --out results \
+  --epochs 20 \
+  --batch 8 \
+  --lr 1e-4
+```
+#### Output
+After training completes, the output directory will contain:
+```angular2html
+model.pt
+accuracy.csv
+```
+
+---
+### RNA subcellular localization prediction
+
+This script performs inference using a pre-trained sequence classifier.
+
+#### Input Requirements
+The script accepts the following required command-line arguments:
+
+| Argument       | Type    | Description                                                            | Default |
+|----------------|---------|------------------------------------------------------------------------|---------|
+| `--input`      | `str`   | Input CSV file containing sequences with seq_id in the first column    |         |
+| `--model`      | `str`   | Pre-trained model file path (.pt / .pth)                               |         |
+| `--out`        | `str`   | Output CSV file for prediction results                                 |         |
+| `--device`     | `str`   | Device to run prediction (cuda or cpu)                                 |         |
+
+
+#### Quick Start
+Run inference using the following command:
+```angular2html
+python infer_sequence.py \
+  --input sequence.tsv \
+  --model model.pt \
+  --out results.csv \
+  --device cuda \
+```
+
+#### Output
+
+After the script finishes, the output file will contain:
+
+```angular2html
+results.csv - A table of predict location for each reads.
+```
 
 ---
 
@@ -254,7 +321,7 @@ We implements a Transformer-based deep learning model for binary classification 
 
 If you use this script or parts of it in your research or project, please cite the repository or acknowledge the author appropriately. A suggested citation format:
 
-> [Zeng. x. (2025). *SRLE-seq k-mer comparison and visualization pipeline*](https://doi.org/10.5281/zenodo.1234567)
+> [Zeng. x. (2025). *SRLE-seq k-mer comparison and visualization pipeline*]()
 
 ---
 
@@ -279,4 +346,5 @@ Feel free to open an issue or pull request for improvements or bug fixes.
 
 This project is licensed under the [MIT License](LICENSE.txt).  
 You are free to use, modify, and distribute it with attribution.
+
 
