@@ -149,17 +149,17 @@ This section aims to investigate the subcellular localization preferences of ind
 ### Input Requirements
 The script accepts the following required command-line arguments:
 
-| Argument         | Type  | Description                                                 | Default |
-|------------------|-------|-------------------------------------------------------------|---------|
-| `-nuc_fq1`       | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
-| `-nuc_fq2`       | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
-| `-cyto_fq1`      | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
-| `-cyto_fq2`      | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
-| `-s`             | `str` | Output directory for saving result figures and tables       |         |
-| `-up_flanking`   | `str` | Sequence of the upstream (5') anchor primer                 |         |
-| `-down_flanking` | `str` | Sequence of the downstream (3') anchor primer               |         |
-| `-mode`          | `str` | Processing mode: `kmer_complexity` or `fragment_complexity` |         |
-| `-kmer_length`   | `int` | Length of k-mers to count                                   | 4       |
+| Argument         | Type  | Description                                                 | Default  |
+|------------------|-------|-------------------------------------------------------------|----------|
+| `-nuc_fq1`       | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    | -        |
+| `-nuc_fq2`       | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    | -        |
+| `-cyto_fq1`      | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  | -        |
+| `-cyto_fq2`      | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  | -        |
+| `-s`             | `str` | Output directory for saving result figures and tables       | -        |
+| `-up_flanking`   | `str` | Sequence of the upstream (5') anchor primer                 | -        |
+| `-down_flanking` | `str` | Sequence of the downstream (3') anchor primer               | -        |
+| `-mode`          | `str` | Processing mode: `kmer_complexity` or `fragment_complexity` | -        |
+| `-kmer_length`   | `int` | Length of k-mers to count                                   | 4        |
 
 ### Quick Start
 Follow these steps to quickly analyse fragment location analysis:
@@ -346,6 +346,7 @@ Feel free to open an issue or pull request for improvements or bug fixes.
 
 This project is licensed under the [MIT License](LICENSE.txt).  
 You are free to use, modify, and distribute it with attribution.
+
 
 
 
