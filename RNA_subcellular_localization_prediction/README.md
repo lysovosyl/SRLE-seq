@@ -37,7 +37,7 @@ After training completes, the output directory will contain:
 ```angular2html
 model.pt
 accuracy.csv
-
+```
 ---
 ## 📍 Sequence Prediction
 ### 1.Introduction
@@ -68,5 +68,6 @@ python infer_sequence.py \
 After the script finishes, the output file will contain:
 results.csv - A table of predict location for each reads.
 ---
+
 
 
