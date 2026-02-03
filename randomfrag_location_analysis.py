@@ -24,7 +24,7 @@ parse.add_argument('-gene_chr', type=str, required=True, help="Chromosome name o
 parse.add_argument('-gene_region_start', type=int, required=True, help="	Start coordinate of the target gene region (1-based)")
 parse.add_argument('-gene_region_end', type=int, required=True, help="End coordinate of the target gene region (1-based)")
 parse.add_argument('-config', type=str, default='./config.yaml', help="Path to a configuration file containing parameter presets")
-parse.add_argument('-thread', type=int,required=True,help='Number of threads to use for parallel processing')
+parse.add_argument('-thread', type=int,default=4,help='Number of threads to use for parallel processing')
 args = parse.parse_args()
 
 up_flanking_region = args.up_flanking
@@ -280,4 +280,5 @@ save_result(kmer_count=cyto_kmer_count,
             coverage=cyto_coverage,
             coverage_x=cyto_coverage_x,
             save_path=os.path.join(save_path,'cyto_result'))
+
 print('Done!')
