@@ -26,10 +26,10 @@ The script accepts the following required command-line arguments:
 
 | Argument   | Type    | Description                                                    | Default |
 |------------|---------|----------------------------------------------------------------|---------|
-| `-fq1`     | `str`   | Path to R1 FASTQ file                                          |         |
-| `-fq2`     | `str`   | Path to R2 FASTQ file                                          |         |
-| `-s`       | `str`   | Output directory for demultiplexed reads                       |         |
-| `-primer`  | `str`   | Primer list file containing library names and primer sequences |         |
+| `-fq1`     | `str`   | Path to R1 FASTQ file                                          | -       |
+| `-fq2`     | `str`   | Path to R2 FASTQ file                                          | -       |
+| `-s`       | `str`   | Output directory for demultiplexed reads                       | -       |
+| `-primer`  | `str`   | Primer list file containing library names and primer sequences | -       |
 
 
 ### Quick Start
@@ -74,12 +74,12 @@ The script accepts the following required command-line arguments:
 
 | Argument         | Type     | Description                                              | Default |
 |------------------|----------|----------------------------------------------------------|---------|
-| `-fq1`           | `str`    | Path to the nuclear sample R1 (forward reads) FASTQ file |         |
-| `-fq2`           | `str`    | Path to the nuclear sample R2 (reverse reads) FASTQ file |         |
-| `-s`             | `str`    | Output directory for saving result figures and tables    |         |
-| `-up_flanking`   | `str`    | Sequence of the upstream (5') anchor primer              |         |
-| `-down_flanking` | `str`    | Sequence of the downstream (3') anchor primer            |         |
-| `-kmer_length`   | `str`    | Length of k-mers to count                                |         |
+| `-fq1`           | `str`    | Path to the nuclear sample R1 (forward reads) FASTQ file | -       |
+| `-fq2`           | `str`    | Path to the nuclear sample R2 (reverse reads) FASTQ file | -       |
+| `-s`             | `str`    | Output directory for saving result figures and tables    | -       |
+| `-up_flanking`   | `str`    | Sequence of the upstream (5') anchor primer              | -       |
+| `-down_flanking` | `str`    | Sequence of the downstream (3') anchor primer            | -       |
+| `-kmer_length`   | `str`    | Length of k-mers to count                                | -       |
 
 ### Quick Start
 Follow these steps to quickly analyse library diversity:
@@ -106,18 +106,18 @@ This section is designed to validate whether the constructed fragment-based plas
 ### Input Requirements
 The script accepts the following required command-line arguments:
 
-| Argument             | Type  | Description                                                | Default |
-|----------------------|-------|------------------------------------------------------------|---------|
-| `-fq1`               | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file   |         |
-| `-fq2`               | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file   |         |
-| `-s`                 | `str` | Output directory for saving result figures and tables      |         |
-| `-up_flanking`       | `str` | Sequence of the upstream (5') anchor primer                |         |
-| `-down_flanking`     | `str` | Sequence of the downstream (3') anchor primer              |         |
-| `-gene_chr`          | `str` | Chromosome name of the gene locus (e.g., `chr11`)          |         |
-| `-gene_region_start` | `int` | Start coordinate of the target gene region (1-based)       |         |
-| `-gene_region_end`   | `int` | End coordinate of the target gene region (1-based)         |         |
-| `-config`            | `str` | Path to a configuration file containing parameter presets  |         |
-| `-thread`            | `int` | Number of threads to use for parallel processing           |         |
+| Argument             | Type  | Description                                                | Default       |
+|----------------------|-------|------------------------------------------------------------|---------------|
+| `-fq1`               | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file   | -             |
+| `-fq2`               | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file   | -             |
+| `-s`                 | `str` | Output directory for saving result figures and tables      | -             |
+| `-up_flanking`       | `str` | Sequence of the upstream (5') anchor primer                | -             |
+| `-down_flanking`     | `str` | Sequence of the downstream (3') anchor primer              | -             |
+| `-gene_chr`          | `str` | Chromosome name of the gene locus (e.g., `chr11`)          | -             |
+| `-gene_region_start` | `int` | Start coordinate of the target gene region (1-based)       | -             |
+| `-gene_region_end`   | `int` | End coordinate of the target gene region (1-based)         | -             |
+| `-config`            | `str` | Path to a configuration file containing parameter presets  | ./config.yaml |
+| `-thread`            | `int` | Number of threads to use for parallel processing           | 4             |
 
 ### Quick Start
 Follow these steps to quickly analyse library diversity:
@@ -151,15 +151,15 @@ The script accepts the following required command-line arguments:
 
 | Argument         | Type  | Description                                                 | Default |
 |------------------|-------|-------------------------------------------------------------|---------|
-| `-nuc_fq1`  | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
-| `-nuc_fq2`  | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
-| `-cyto_fq1` | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
-| `-cyto_fq2` | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
+| `-nuc_fq1`       | `str` | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
+| `-nuc_fq2`       | `str` | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
+| `-cyto_fq1`      | `str` | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
+| `-cyto_fq2`      | `str` | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
 | `-s`             | `str` | Output directory for saving result figures and tables       |         |
 | `-up_flanking`   | `str` | Sequence of the upstream (5') anchor primer                 |         |
 | `-down_flanking` | `str` | Sequence of the downstream (3') anchor primer               |         |
 | `-mode`          | `str` | Processing mode: `kmer_complexity` or `fragment_complexity` |         |
-| `-kmer_length`   | `int` | Length of k-mers to count                                   |         |
+| `-kmer_length`   | `int` | Length of k-mers to count                                   | 4       |
 
 ### Quick Start
 Follow these steps to quickly analyse fragment location analysis:
@@ -192,20 +192,20 @@ This section focuses on the subcellular localization patterns of full-length or 
 ### Input Requirements
 The script accepts the following required command-line arguments:
 
-| Argument             | Type   | Description                                                 | Default |
-|----------------------|--------|-------------------------------------------------------------|---------|
-| `-nuc_fq1`           | `str`  | Path to the nuclear sample R1 (forward reads) FASTQ file    |         |
-| `-nuc_fq2`           | `str`  | Path to the nuclear sample R2 (reverse reads) FASTQ file    |         |
-| `-cyto_fq1`          | `str`  | Path to the cytoplasm sample R1 (forward reads) FASTQ file  |         |
-| `-cyto_fq2 `         | `str`  | Path to the cytoplasm sample R2 (forward reads) FASTQ file  |         |
-| `-s`                 | `str`  | Output directory for saving result figures and tables       |         |
-| `-up_flanking`       | `str`  | Sequence of the upstream (5') anchor primer                 |         |
-| `-down_flanking`     | `str`  | Sequence of the downstream (3') anchor primer               |         |
-| `-gene_chr`          | `str`  | Processing mode: `kmer_complexity` or `fragment_complexity` |         |
-| `-gene_region_start` | `int`  | Start coordinate of the target gene region (1-based)        |         |
-| `-gene_region_end`   | `int`  | End coordinate of the target gene region (1-based)          |         |
-| `-config`            | `str`  | Path to a configuration file containing parameter presets   |         |
-| `-thread`            | `int`  | Number of threads to use for parallel processing            |         |
+| Argument             | Type   | Description                                                 | Default       |
+|----------------------|--------|-------------------------------------------------------------|---------------|
+| `-nuc_fq1`           | `str`  | Path to the nuclear sample R1 (forward reads) FASTQ file    | -             |
+| `-nuc_fq2`           | `str`  | Path to the nuclear sample R2 (reverse reads) FASTQ file    | -             |
+| `-cyto_fq1`          | `str`  | Path to the cytoplasm sample R1 (forward reads) FASTQ file  | -             |
+| `-cyto_fq2 `         | `str`  | Path to the cytoplasm sample R2 (forward reads) FASTQ file  | -             |
+| `-s`                 | `str`  | Output directory for saving result figures and tables       | -             |
+| `-up_flanking`       | `str`  | Sequence of the upstream (5') anchor primer                 | -             |
+| `-down_flanking`     | `str`  | Sequence of the downstream (3') anchor primer               | -             |
+| `-gene_chr`          | `str`  | Chromosome name of the gene locus (e.g., `chr11`)           | -             |
+| `-gene_region_start` | `int`  | Start coordinate of the target gene region (1-based)        | -             |
+| `-gene_region_end`   | `int`  | End coordinate of the target gene region (1-based)          | -             |
+| `-config`            | `str`  | Path to a configuration file containing parameter presets   | ./config.yaml |
+| `-thread`            | `int`  | Number of threads to use for parallel processing            | 4             |
 
 ### Quick Start
 Follow these steps to quickly analyse fragment location analysis:
@@ -250,15 +250,15 @@ We provides a PyTorch-based sequence classification pipeline using a Transformer
 
 #### Input Requirements
 
-| Argument       | Type     | Description                         | Default |
-|----------------|----------|-------------------------------------|---------|
-| `--file0`      | `str` | TSV file containing class 0 samples |         |
-| `--file1`      | `str` | TSV file containing class 1 samples |         |
-| `--out`        | `str` | Output directory for results        |         |
-| `--epochs`     | `str` | Number of training epochs           |         |
-| `--batch`      | `str` | Batch size                          |         |
-| `--lr`         | `str` | Learning rate                       |         |
-| `--test_size`  | `int` | Proportion of data used for testing |         |
+| Argument       | Type    | Description                           | Default   |
+|----------------|---------|---------------------------------------|-----------|
+| `--file0`      | `str`   | TSV file containing class 0 samples   | -         |
+| `--file1`      | `str`   | TSV file containing class 1 samples   | -         |
+| `--out`        | `str`   | Output directory for results          | ./results |
+| `--epochs`     | `int`   | Number of training epochs             | 20        |
+| `--batch`      | `int`   | Batch size                            | 8         |
+| `--lr`         | `float` | Learning rate                         | 1e-4      |
+| `--test_size`  | `float` | Proportion of data used for testing   | 0.2       |
 
 
 #### Quick Start
@@ -288,12 +288,12 @@ This script performs inference using a pre-trained sequence classifier.
 #### Input Requirements
 The script accepts the following required command-line arguments:
 
-| Argument       | Type    | Description                                                            | Default |
-|----------------|---------|------------------------------------------------------------------------|---------|
-| `--input`      | `str`   | Input CSV file containing sequences with seq_id in the first column    |         |
-| `--model`      | `str`   | Pre-trained model file path (.pt / .pth)                               |         |
-| `--out`        | `str`   | Output CSV file for prediction results                                 |         |
-| `--device`     | `str`   | Device to run prediction (cuda or cpu)                                 |         |
+| Argument       | Type    | Description                                                            | Default          |
+|----------------|---------|------------------------------------------------------------------------|------------------|
+| `--input`      | `str`   | Input CSV file containing sequences with seq_id in the first column    | -                |
+| `--model`      | `str`   | Pre-trained model file path (.pt / .pth)                               | -                |
+| `--out`        | `str`   | Output CSV file for prediction results                                 | ./prediction.csv |
+| `--device`     | `str`   | Device to run prediction (cuda or cpu)                                 | cuda             |
 
 
 #### Quick Start
@@ -346,5 +346,6 @@ Feel free to open an issue or pull request for improvements or bug fixes.
 
 This project is licensed under the [MIT License](LICENSE.txt).  
 You are free to use, modify, and distribute it with attribution.
+
 
 
