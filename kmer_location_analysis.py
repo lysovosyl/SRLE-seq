@@ -12,6 +12,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import csv
 
+
 parse = argparse.ArgumentParser(description="K-mer counting and plotting script for nuc/cyto comparison")
 parse.add_argument('-nuc_fq1', type=str, required=True, help="nuclear sample R1 fastq file")
 parse.add_argument('-nuc_fq2', type=str, required=True, help="nuclear sample R2 fastq file")
@@ -21,7 +22,7 @@ parse.add_argument('-s', type=str, required=True, help="Path to save result figu
 parse.add_argument('-up_flanking', type=str, required=True, help="Upstream primer sequence (z)")
 parse.add_argument('-down_flanking', type=str, required=True, help="Downstream primer sequence (z)")
 parse.add_argument('-mode', choices=['kmer_complexity', 'fragment_complexity'], default='kmer_complexity',help="Processing mode: library_complexity or cell_complexity")
-parse.add_argument('-kmer_length', type=int, default=None, help="Length of k-mers to count")
+parse.add_argument('-kmer_length', type=int, default=6, help="Length of k-mers to count")
 args = parse.parse_args()
 
 up_primer_z = args.up_flanking
@@ -182,3 +183,4 @@ if mode == 'kmer_complexity':
     plt.title("K-mer abundance scatter plot with log2FC coloring")
     plt.tight_layout()
     plt.savefig(os.path.join(save_path, 'kmer_complexity.kmer.count.png'))
+
